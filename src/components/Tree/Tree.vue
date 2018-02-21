@@ -1,30 +1,33 @@
 <template>
-  <div>
-
+  <div v-if="treeData">
+    <tree-node :person="treeData.me"></tree-node>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import Branch from './Branch';
+import UpBranch from './UpBranch';
+import DownBranch from './DownBranch';
+import TreeNode from './TreeNode';
 import { Person, Tree, reconstruct } from '@/model';
 
 export default {
   name: 'tree-component',
   components: {
-    'branch': Branch,
+    'up-branch': UpBranch,
+    'down-branch': DownBranch,
+    'tree-node': TreeNode,
   },
   data() {
     return {
       treeData: null,
+      me: null,
     }
   },
   mounted() {
     axios.get('static/tree.json').then(
       res => {
         this.treeData = reconstruct(res.data);
-        this.treeData.updateTags();
-        console.log(this.treeData);
       },
       error => {
         throw new Error(error);

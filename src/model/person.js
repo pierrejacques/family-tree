@@ -21,11 +21,6 @@ export default class Person {
     deadOn = getToday(),
     isMale = true,
     isAlive = true,
-    fellow = '',
-    father = '',
-    mother = '',
-    offsprings = [],
-    exs = [],
   }) {
     this.firstname = firstname;
     this.lastname = lastname;
@@ -34,11 +29,11 @@ export default class Person {
     this.info = info;
     this.isMale = isMale;
     this.isAlive = isAlive;
-    this.fellow = fellow;
-    this.father = father;
-    this.mother = mother;
-    this.offsprings = offsprings;
-    this.exs = exs;
+    this.fellow = null;
+    this.father = null;
+    this.mother = null;
+    this.offsprings = [];
+    this.exs = [];
     this.id = id || this.genId();
   }
 
@@ -59,16 +54,15 @@ export default class Person {
   }
 
   addOffspring(person) {
-    const id = person.id;
-    if (this.id !== id && this.offsprings.indexOf(id) === -1) {
-      this.offsprings.push(id);
+    if (this !== person && this.offsprings.indexOf(person) === -1) {
+      this.offsprings.push(person);
       return true;
     }
     return false;
   }
 
   removeOffspring(person) {
-    const idx = this.offsprings.indexOf(person.id);
+    const idx = this.offsprings.indexOf(person);
     if (idx !== -1) {
       this.offsprings.splice(idx, 1);
       return true;
@@ -77,32 +71,44 @@ export default class Person {
   }
 
   setFather(person) {
-    const id = person.id;
-    if (this.father || this.id === id) {
+    if (this.father || this === person) {
       return false;
     }
-    this.father = id;
+    this.father = person;
     return true;
   }
 
   setMother(person) {
-    const id = person.id;
-    if (this.mother || this.id === id) {
+    if (this.mother || this === person) {
       return false;
     }
-    this.mother = id;
+    this.mother = person;
     return true;
   }
 
   setFellow(person) {
-    const id = person.id;
-    if (id === this.id) {
+    if (this === person) {
       return false;
     }
     if (this.fellow) {
       this.exs.push(this.fellow);
     }
-    this.fellow = id;
+    this.fellow = person;
     return true;
+  }
+
+  compress() {
+    const obj = {...this};
+    delete obj.fellow;
+    delete obj.mother;
+    delete obj.father;
+    delete obj.offsprings;
+    delete obj.exs;
+    obj.fellowId = this.fellow.id;
+    obj.motherId = this.mother.id;
+    obj.fatherId = this.father.id;
+    obj.offspringsId = this.offsprings.map(person => person.id);
+    obj.exsId = this.exs.map(person => person.id);
+    return obj;
   }
 }

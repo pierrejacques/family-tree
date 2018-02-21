@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{data.name}}
+        {{person.name}}
         <ul v-if="data.children">
             <li v-for="(child, idx) in data.children" :key="idx">
                 <branch :data="child"></branch>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'branch',
+    name: 'down-branch',
     props: ['data'],
 }
 </script>
