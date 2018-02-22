@@ -8,6 +8,7 @@
         :up="true" 
         :down="true" 
         :root="treeData.me"
+        :isRoot="true"
         :isPater="true"
         :layer="0"
       ></branch>

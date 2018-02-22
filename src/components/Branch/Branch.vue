@@ -9,7 +9,7 @@
         :isPater="isPater"
       ></branch>
     </div>
-    <tree-node class="node" :person="root"></tree-node>
+    <tree-node class="node" :person="root" :isMe="isRoot"></tree-node>
     <div v-if="down" class="tree-row">
       <branch
         v-for="(child, idx) in root.offsprings"
@@ -36,6 +36,10 @@ export default {
       default: () => ({
         offsprings: [],
       }),
+    },
+    isRoot: {
+      type: Boolean,
+      default: false,
     },
     up: {
       type: Boolean,

@@ -32,6 +32,9 @@ export default class Tree {
       return false;
     }
     this.me = person;
+    Object.values(this.members).forEach(one => {
+      one.isMe = one === person;
+    })
     return true;
   }
 
@@ -39,13 +42,19 @@ export default class Tree {
     if (!this.has(person)) {
       return false;
     }
-    this.current = person === this.me ? null : person;
+    const val = person === this.me ? null : person;
+    this.current = val;
+    Object.values(this.members).forEach(one => {
+      one.isCurrent = one === val;
+    });
     return true;
   }
 
   transpose() {
     if (this.current) {
-      [this.me, this.current] = [this.current, this.me];
+      const me = this.me;
+      this.setMe(this.current);
+      this.setCurrent(me);
     }
   }
 
