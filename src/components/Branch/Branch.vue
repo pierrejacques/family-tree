@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Math.abs(layer) <= 3">
+  <div v-if="Math.abs(layer) <= 3" class="branch">
     <div v-if="up" class="tree-row">
       <branch
         v-if="root[parent]"
@@ -62,6 +62,9 @@ export default {
 </script>
 
 <style>
+  .branch {
+    flex-grow: 1;
+  }
   .tree-row {
     display: flex;
     justify-content: space-around;

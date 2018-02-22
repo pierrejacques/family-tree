@@ -49,6 +49,11 @@ export default class Tree {
     }
   }
 
+  relation() {
+    // TODO: 关系计算
+    return '未知';
+  }
+
   // setTag(id, value, version) {
   //   const currentTag = this.tags[id];
   //   const person = this.members[id];

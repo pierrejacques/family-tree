@@ -1,10 +1,15 @@
 <template>
   <div class="individual">
-    <div 
+    <div
+      :data-id="personData.id"
       class="head"
       :class="personData.isMale ? 'male' : 'female'"
-    ></div>
-    {{personData.firstname}} {{personData.lastname}}
+    >
+      {{personData.firstname}}
+    </div>
+    <div class="name">
+      {{personData.lastname}}
+    </div>
   </div>
 </template>
 
@@ -23,28 +28,38 @@ export default {
     personData() {
       return ipa.guarantee(this.data, false);
     },
-  }
+  },
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   .individual {
     text-align: center;
+    padding: 0 5px;
   }
 
   .head {
+    box-sizing: border-box;
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 2px solid #949494;
     margin: auto;
+    color: white;
+    font-weight: bolder;
+    padding-top: 18px;
+    cursor: pointer;
   }
 
   .male {
-    background: #a5eeea;
+    background: #277ceb;
   }
 
   .female {
-    background: #eb6b95;
+    background: #f34268;
+  }
+
+  .name {
+    text-decoration: underline;
+    line-height: 30px;
   }
 </style>

@@ -23,9 +23,9 @@ export default data => {
       cmpPerson.exsId.forEach(id => {
         person.setFellow(members[id]);
       });
-      person.setFather(members[cmpPerson.fatherId]);
-      person.setMother(members[cmpPerson.motherId]);
-      person.setFellow(members[cmpPerson.fellowId]);
+      if (cmpPerson.fatherId) person.setFather(members[cmpPerson.fatherId]);
+      if (cmpPerson.motherId) person.setMother(members[cmpPerson.motherId]);
+      if (cmpPerson.fellowId) person.setFellow(members[cmpPerson.fellowId]);
   });
   const tree = new Tree(members);
   tree.setMe(members[data.meId]);

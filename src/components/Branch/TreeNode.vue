@@ -1,14 +1,15 @@
 <template>
   <div v-if="person" class="tree-node">
     <individual :data="person"></individual>
-    <!-- <template class="fellow-wrapper" v-if="person.fellow">
+    <template class="fellow-wrapper" v-if="person.fellow">
+      <div class="dash"></div>
       <individual :data="person.fellow"></individual>
-    </template> -->
+    </template>
   </div>
 </template>
 
 <script>
-import Individual from '@/shared/Individual';
+import Individual from './Individual';
 
 export default {
   name: 'tree-node',
@@ -23,6 +24,12 @@ export default {
 .tree-node {
   display: flex;
   justify-content: center;
-  margin: auto;
+  margin: 20px 0;
+}
+
+.dash {
+  height: 30px;
+  width: 20px;
+  border-bottom: 1px solid black;
 }
 </style>

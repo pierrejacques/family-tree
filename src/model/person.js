@@ -56,6 +56,7 @@ export default class Person {
   addOffspring(person) {
     if (this !== person && this.offsprings.indexOf(person) === -1) {
       this.offsprings.push(person);
+      this.offsprings.sort((a, b) => new Date(a.bornOn) > new Date(b.bornOn));
       return true;
     }
     return false;
@@ -98,15 +99,15 @@ export default class Person {
   }
 
   compress() {
-    const obj = {...this};
+    const obj = Object.assign({}, this);
     delete obj.fellow;
     delete obj.mother;
     delete obj.father;
     delete obj.offsprings;
     delete obj.exs;
-    obj.fellowId = this.fellow.id;
-    obj.motherId = this.mother.id;
-    obj.fatherId = this.father.id;
+    obj.fellowId = this.fellow && this.fellow.id;
+    obj.motherId = this.mother && this.mother.id;
+    obj.fatherId = this.father && this.father.id;
     obj.offspringsId = this.offsprings.map(person => person.id);
     obj.exsId = this.exs.map(person => person.id);
     return obj;
