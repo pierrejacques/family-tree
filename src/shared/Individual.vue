@@ -1,7 +1,11 @@
 <template>
-  <span class="individual">
+  <div class="individual">
+    <div 
+      class="head"
+      :class="personData.isMale ? 'male' : 'female'"
+    ></div>
     {{personData.firstname}} {{personData.lastname}}
-  </span>
+  </div>
 </template>
 
 <script>
@@ -24,4 +28,23 @@ export default {
 </script>
 
 <style scoped>
+  .individual {
+    text-align: center;
+  }
+
+  .head {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #949494;
+    margin: auto;
+  }
+
+  .male {
+    background: #a5eeea;
+  }
+
+  .female {
+    background: #eb6b95;
+  }
 </style>

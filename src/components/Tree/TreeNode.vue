@@ -1,10 +1,9 @@
 <template>
-  <div v-if="person" class="node-wrapper">
+  <div v-if="person" class="tree-node">
     <individual :data="person"></individual>
-    <span class="fellow-wrapper" v-if="person.fellow">
-      -------
+    <!-- <template class="fellow-wrapper" v-if="person.fellow">
       <individual :data="person.fellow"></individual>
-    </span>
+    </template> -->
   </div>
 </template>
 
@@ -21,7 +20,9 @@ export default {
 </script>
 
 <style scoped>
-.node-wrapper {
-  text-align: center;
+.tree-node {
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 </style>

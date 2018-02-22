@@ -1,27 +1,30 @@
 <template>
   <div v-if="treeData">
-    <tree-node :person="treeData.me"></tree-node>
+    <branch 
+      :up="true" 
+      :down="true" 
+      :root="treeData.me"
+      :isPater="true"
+      :layer="0"
+    ></branch>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import UpBranch from './UpBranch';
-import DownBranch from './DownBranch';
+import Branch from './Branch';
 import TreeNode from './TreeNode';
 import { Person, Tree, reconstruct } from '@/model';
 
 export default {
   name: 'tree-component',
   components: {
-    'up-branch': UpBranch,
-    'down-branch': DownBranch,
+    'branch': Branch,
     'tree-node': TreeNode,
   },
   data() {
     return {
       treeData: null,
-      me: null,
     }
   },
   mounted() {
