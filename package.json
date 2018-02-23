@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "element-ui": "^2.2.0",
     "ipa.js": "^1.4.0",
     "js-md5": "^0.7.3",
     "less": "^3.0.1",

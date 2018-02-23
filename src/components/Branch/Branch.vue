@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Math.abs(layer) <= 3" class="branch">
+  <div class="branch">
     <div v-if="up" class="tree-row">
       <branch
         v-if="root[parent]"

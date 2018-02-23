@@ -5,7 +5,7 @@
       <branch 
         :up="true" 
         :down="true" 
-        :root="me"
+        :root="root"
         :isRoot="true"
         :layer="0"
       ></branch>
@@ -66,6 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'root',
       'me',
       'current',
       'relation',
