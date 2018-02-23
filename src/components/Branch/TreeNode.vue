@@ -2,7 +2,6 @@
   <div v-if="person" class="tree-node">
     <individual 
       :data="person"
-      :isMe="isMe"
     ></individual>
     <template class="fellow-wrapper" v-if="person.fellow">
       <div class="dash"></div>
@@ -19,7 +18,7 @@ import Individual from './Individual';
 
 export default {
   name: 'tree-node',
-  props: ['person', 'isMe'],
+  props: ['person'],
   components: {
     individual: Individual,
   }
@@ -34,7 +33,7 @@ export default {
 }
 
 .dash {
-  height: 30px;
+  height: 25px;
   width: 20px;
   border-bottom: 1px solid black;
 }

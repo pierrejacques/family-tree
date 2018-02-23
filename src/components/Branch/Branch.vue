@@ -6,10 +6,9 @@
         :up="true"
         :root="root[parent]"
         :layer="layer - 1"
-        :isPater="isPater"
       ></branch>
     </div>
-    <tree-node class="node" :person="root" :isMe="isRoot"></tree-node>
+    <tree-node class="node" :person="root"></tree-node>
     <div v-if="down" class="tree-row">
       <branch
         v-for="(child, idx) in root.offsprings"
@@ -37,10 +36,6 @@ export default {
         offsprings: [],
       }),
     },
-    isRoot: {
-      type: Boolean,
-      default: false,
-    },
     up: {
       type: Boolean,
       default: false,
@@ -49,18 +44,15 @@ export default {
       type: Boolean,
       default: false,
     },
-    isPater: {
-      type: Boolean,
-      default: true,
-    },
     layer: {
       type: Number,
     }
   },
   computed: {
     parent() {
-      return this.isPater ? 'father' : 'mother';
-    }
+      return this.$store.state.isPater ? 'father' : 'mother';
+    },
+
   }
 }
 </script>

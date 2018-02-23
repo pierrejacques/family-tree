@@ -1,13 +1,12 @@
 <template>
-  <div class="individual">
+  <div class="individual" @click="setCurrent(personData.id)">
     <div
-      :data-id="personData.id"
       class="head"
       :class="{
         male: personData.isMale,
-        minor: isMinor && !isMe && !personData.isCurrent,
+        minor: isMinor && !isMe && !isCurrent,
         me: isMe,
-        current: personData.isCurrent,
+        current: isCurrent,
       }"
     >
       {{personData.firstname}}
@@ -20,6 +19,7 @@
 
 <script>
 import IPA from 'ipa.js';
+import { mapGetters, mapMutations } from 'vuex';
 
 const ipa = new IPA({
   firstname: String,
@@ -36,16 +36,27 @@ export default {
       type: Boolean,
       default: false,
     },
-    isMe: {
-      type: Boolean,
-      default: false,
-    }
   },
   computed: {
+    ...mapGetters([
+      'me',
+      'current',
+    ]),
     personData() {
       return ipa.guarantee(this.data, false);
     },
+    isMe() {
+      return this.personData.id === (this.me && this.me.id);
+    },
+    isCurrent() {
+      return this.personData.id === (this.current && this.current.id);
+    }
   },
+  methods: {
+    ...mapMutations([
+      'setCurrent',
+    ])
+  }
 }
 </script>
 
@@ -57,6 +68,7 @@ export default {
   .individual {
     text-align: center;
     padding: 0 5px;
+    cursor: pointer;
   }
 
   .head {
@@ -69,7 +81,6 @@ export default {
     color: white;
     font-weight: bolder;
     padding-top: 13px;
-    cursor: pointer;
     background: white;
     border: 1px solid @female-color;
     color: @female-color;
