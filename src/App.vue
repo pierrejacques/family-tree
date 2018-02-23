@@ -11,6 +11,8 @@ export default {
 </script>
 
 <style>
+@import url('./asset/iconfont/iconfont.css');
+@import url('./asset/style/clear.less');
 body {
   margin: 0;
 }
