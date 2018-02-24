@@ -9,7 +9,7 @@ Vue.use(Vuex);
 const state = {
   tree: {},
   isPater: true,
-  treeType: 'self',
+  treeType: 'grand',
 };
 
 const getters = {
