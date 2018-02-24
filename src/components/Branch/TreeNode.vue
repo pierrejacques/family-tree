@@ -1,9 +1,10 @@
 <template>
-  <div v-if="person" class="tree-node">
+  <div v-if="person" class="tree-node" :class="{padding: !person.fellow}">
+    <div v-if="person.fellow" class="wing"></div>
     <individual 
       :data="person"
     ></individual>
-    <template class="fellow-wrapper" v-if="person.fellow">
+    <template class="fellow-wrapper wing" v-if="person.fellow">
       <div class="dash"></div>
       <individual 
         :data="person.fellow" 
@@ -25,16 +26,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@line: 1px solid #ccc;
 .tree-node {
   display: flex;
+  position: relative;
   justify-content: center;
-  margin: 20px 0;
+  padding: 20px 0;
+  &.padding {
+    padding: 20px;
+  }
 }
 
 .dash {
+  width: 5px;
   height: 25px;
-  width: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: @line;
+}
+
+.wing {
+  width: 60px;
 }
 </style>

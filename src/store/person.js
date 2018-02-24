@@ -53,10 +53,14 @@ export default class Person {
     return true;
   }
 
+  sort() {
+    this.offsprings.sort((a, b) => new Date(a.bornOn) > new Date(b.bornOn));
+  }
+
   addOffspring(person) {
     if (this !== person && this.offsprings.indexOf(person) === -1) {
       this.offsprings.push(person);
-      this.offsprings.sort((a, b) => new Date(a.bornOn) > new Date(b.bornOn));
+      this.sort();
       return true;
     }
     return false;

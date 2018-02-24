@@ -2,9 +2,10 @@
   <div class="home-page">
     <setting></setting>
     <div class="tree" v-if="me">
-      <branch 
-        :up="true" 
-        :down="true" 
+      <branch
+        class="root-branch"
+        :up="true"
+        :down="true"
         :root="root"
         :isRoot="true"
         :layer="0"
@@ -16,9 +17,7 @@
         <a class="btn" @click="transpose">
           <i class="iconfont icon-tranpose"></i>
         </a>
-        <hero :info="{ character: relation, data: current }">
-          <a class="btn" @click="setMe()">设为"我"</a>
-        </hero>
+        <hero :info="{ character: relation, data: current }"></hero>
       </template>
     </aside>
   </div>
@@ -74,12 +73,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setMe',
       'transpose'
     ]),
-    // TODO: 切换表类（2维度）
-    // TODO: 添加成员
-    // TODO: 保存树
   }
 };
 </script>
@@ -89,27 +84,23 @@ export default {
     display: flex;
     position: relative;
     min-height: 100vh;
+    align-items: stretch;
     padding-left: 50px;
-  }
-  .tree {
-    flex-grow: 1;
-    padding-top: 100px;
-  }
-  .info-bar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 350px;
-  }
-  .btn {
-    padding: 5px 16px;
-    margin: 5px;
-    background: #eee;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .icon-tranpose {
-    font-size: 24px;
+    .tree {
+      flex-grow: 1;
+      padding-top: 100px;
+    }
+    .info-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .icon-tranpose {
+      font-size: 24px;
+    }
+    .root-branch {
+      margin: 20px;
+      margin-right: 50px;
+    }
   }
 </style>

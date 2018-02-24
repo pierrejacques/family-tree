@@ -94,14 +94,14 @@ export default {
 @background: #333;
 
 .setting {
-  position: absolute;
+  position: fixed;
+  height: 100vh;
   z-index: 10;
   left: 0;
   width: @width;
-  height: 100vh;
 	background: @background;
 	color: white;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+  box-shadow: 2px 0 7px rgba(0, 0, 0, 0.1);
 }
 .operator {
 	width: @width;

@@ -12,7 +12,7 @@ export default {
 
 <style>
 @import url('./asset/iconfont/iconfont.css');
-@import url('./asset/style/clear.less');
+@import url('./asset/style/index.less');
 body {
   margin: 0;
 }

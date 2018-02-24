@@ -62,8 +62,8 @@ export default {
 
 <style lang="less" scoped>
 
-  @male-color: #277ceb;
-  @female-color: #f34268;
+  @male-color: #506bc2;
+  @female-color: #ff656c;
 
   .individual {
     text-align: center;
@@ -73,18 +73,22 @@ export default {
 
   .head {
     @size: 50px;
+    @font: 24px;
     box-sizing: border-box;
+    font-family: SimSun, STSong;
     width: @size;
     height: @size;
     border-radius: 50%;
     margin: auto;
     color: white;
     font-weight: bolder;
-    padding-top: 13px;
+    padding-top: (@size - @font) / 2 - 2px;
     background: white;
     border: 1px solid @female-color;
     color: @female-color;
-    &.me, &.current {
+    transition: 0.3s;
+    font-size: @font;
+    &.me, &.current, &:hover {
       background: @female-color;
       color: white;
     }
@@ -94,7 +98,7 @@ export default {
     &.male {
       border-color: @male-color;
       color: @male-color;
-      &.me, &.current {
+      &.me, &.current, &:hover {
         background: @male-color;
         color: white;
       }
@@ -104,11 +108,11 @@ export default {
     }
     &.minor {
       opacity: 0.4;
+      transform: scale(0.8) translate(-5px);
     }
   }
 
   .name {
-    text-decoration: underline;
     line-height: 30px;
   }
 </style>

@@ -10,6 +10,7 @@ const state = {
   tree: {},
   isPater: true,
   treeType: 'grand',
+  newCommer: {},
 };
 
 const getters = {
@@ -23,13 +24,14 @@ const getters = {
     }
     const type = state.treeType;
     const parent = state.isPater ? 'father' : 'mother';
+    const another = state.isPater ? 'mother' : 'father';
     if (type === 'parent') {
-      return me[parent] || me;
+      return me[parent] || me[another] || me;
     }
     if (type === 'grand') {
       let root = me;
-      while (root[parent]) {
-        root = root[parent];
+      while (root[parent] || root[another]) {
+        root = root[parent] || root[another];
       }
       return root;
     }
@@ -63,6 +65,63 @@ const mutations = {
   },
   saveTree(state) {
     localStorage.setItem('tree', state.tree.toString());
+  },
+  changeInfo(state, { id, data }) {
+    const person = state.tree.members[id];
+    person.firstname = data.firstname;
+    person.lastname = data.lastname;
+    person.bornOn = data.bornOn;
+    person.isMale = data.isMale;
+    if (person.father) person.father.sort();
+    if (person.mother) person.mother.sort();
+  },
+  setFather(state, { id, info }) {
+    const father = new Person(info);
+    state.tree.add(father);
+    const person = state.tree.members[id];
+    person.setFather(father);
+    father.addOffspring(person);
+    if (person.mother) {
+      person.mother.setFellow(father);
+      father.setFellow(person.mother);
+    }
+  },
+  setMother(state, { id, info }) {
+    const mother = new Person(info);
+    state.tree.add(mother);
+    const person = state.tree.members[id];
+    person.setMother(mother);
+    mother.addOffspring(person);
+    if (person.father) {
+      person.father.setFellow(mother);
+      mother.setFellow(person.father);
+    }
+  },
+  addOffspring(state, { id, info }) {
+    const child = new Person(info);
+    state.tree.add(child);
+    const person = state.tree.members[id];
+    person.addOffspring(child);
+    if (person.isMale) {
+      child.setFather(person);
+      if (person.fellow) {
+        child.setMother(person.fellow);
+        person.fellow.addOffspring(child);
+      }
+    } else {
+      child.setMother(person);
+      if (person.fellow) {
+        child.setFather(person.fellow);
+        person.fellow.addOffspring(child);
+      }
+    }
+  },
+  setFellow(state, { id, info }) {
+    const fellow = new Person(info);
+    state.tree.add(fellow);
+    const person = state.tree.members[id];
+    person.setFellow(fellow);
+    fellow.setFellow(person);
   },
 }
 

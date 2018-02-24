@@ -1,26 +1,54 @@
 <template>
-  <div class="hero">
+  <div class="hero" :class="{female: !data.isMale}">
     <p class="character">{{character}}</p>
-    <i class="iconfont icon-edit"></i>
-    <img v-if="!isImgError" src="data.icon" class="portrait" @error="isImgError = true"/>
-    <div v-else class="portrait"></div>
-    <h3>{{data.firstname}} {{data.lastname}}</h3>
-    <p>{{data.bornOn | dateFormat}} -
-      <template v-if="!data.isAlive">
-        {{data.deadOn | dateFormat}}
+    <infos
+      v-if="!addable"
+      class="content-area" 
+      :data="data" 
+      :editable="editable"
+      :form="editForm"
+      @changeGender="setGender"
+    ></infos>
+    <add 
+      v-else 
+      class="content-area"
+      :data="data"
+      @added="addable = false"
+    ></add>
+    <div class="operator-group">
+      <template v-if="!editable && !addable"> <!-- 根选项 -->
+        <a class="operator" @click="toEdit">
+          <i class="iconfont icon-edit"></i>
+        </a>
+        <a class="operator" @click="addable = true">
+          <i class="iconfont icon-add"></i>
+        </a>
+        <a class="operator" v-if="current && current.id === data.id" @click="setMe()">
+          <i class="iconfont icon-set-me"></i>
+        </a>
       </template>
-      （{{data.age | stamp2year}}岁）
-    </p>
-    <dl class="details" v-for="(value, key, idx) in data.info" :key="key">
-      <dt>{{key}}：</dt>
-      <dd :key="idx">{{value}}</dd>
-    </dl> <!-- TODO: 样式优化-->
-    <slot></slot>
+      <template v-if="editable"> <!-- 编辑控制 -->
+        <a class="operator" @click="commitForm">
+          <i class="iconfont icon-ok"></i>
+        </a>
+        <a class="operator" @click="editable = false">
+          <i class="iconfont icon-cancel"></i>
+        </a>
+      </template>
+      <template v-if="addable"> <!-- 添加控制 -->
+        <a class="operator" @click="addable = false">
+          <i class="iconfont icon-cancel"></i>
+        </a>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
 import IPA from 'ipa.js';
+import { mapGetters, mapMutations } from 'vuex';
+import Infos from './Infos';
+import Add from './Add';
 
 const infoIpa = new IPA({
   character: String,
@@ -29,19 +57,28 @@ const infoIpa = new IPA({
     lastname: String,
     info: Object,
     bornOn: String,
-    isAlive: false,
+    isAlive: true,
   }
 });
 
 export default {
   name: 'hero',
-  props: ['info'],
   data() {
     return {
-      isImgError: false,
+      editable: false,
+      addable: false,
+      editForm: {},
     }
   },
+  components: {
+    infos: Infos,
+    add: Add,
+  },
+  props: ['info'],
   computed: {
+    ...mapGetters([
+      'current',
+    ]),
     infoData() {
       return infoIpa.guarantee(this.info, false);
     },
@@ -54,78 +91,85 @@ export default {
       return rawData;
     }
   },
-  filters: {
-    stamp2year(num) {
-      return Math.ceil(num/1000/60/60/24/365);
+  methods: {
+    ...mapMutations([
+      'setMe',
+      'changeInfo',
+    ]),
+    toEdit() {
+      this.editForm.firstname = this.data.firstname;
+      this.editForm.lastname = this.data.lastname;
+      this.editForm.bornOn = this.data.bornOn;
+      this.editForm.isMale = this.data.isMale;
+      this.editable = true;
     },
-    dateFormat(str) {
-      return (str || '').replace('-', '年').replace('-', '月');
+    commitForm() {
+      this.changeInfo({
+        id: this.data.id,
+        data: this.editForm,
+      });
+      this.editable = false;
+    },
+    setGender(val) {
+      this.editForm.isMale = val;
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+@pad: 20px;
+
 .hero {
+  display: flex;
   position: relative;
   text-align: center;
   background: white;
   font-size: 12px;
   width: 250px;
   margin: 20px;
-  padding: 20px;
-  box-shadow: 0 2px 7px hsla(205, 20%, 50%, 0.3);
-  
-  .portrait {
-    margin: auto;
-    width: 100px;
-    height: 100px;
-    background: rgb(148, 148, 148);
+  background: #d3eaff;
+  box-shadow: 0 2px 7px #485c6b66;
+  &.female {
+    background: #ffe0d2;
+  }
+  .character {
+    position: absolute;
+    box-sizing: border-box;
+    @size: 50px;
+    @font: 16px;
+    left: -@size / 2;
+    padding-top: (@size - @font) / 2;
+    width: @size;
+    height: @size;
+    line-height: @font;
+    font-size: @font;
+    background: white;
+    color: gray;
+    box-shadow: 0 1px 4px #0004;
+    border-radius: 50%;
+  }
+  .content-area {
+    flex-grow: 1;
+    padding: @pad 0;
+  }
+  .operator-group {
+    padding: @pad 5px @pad;
+    background: #666c;
   }
 }
 
-.details {
+.operator {
   display: block;
-  margin: auto;
-  width: 200px;
-  dt {
-    white-space: pre;
-    width: 30px;
-  }
-  dt, dd {
-    display: inline-block;
-    text-align: left;
-  }
-}
-
-.character {
-  position: absolute;
-  box-sizing: border-box;
-  @size: 50px;
-  @font: 16px;
-  left: -@size / 2;
-  padding-top: (@size - @font) / 2;
-  width: @size;
-  height: @size;
-  line-height: @font;
-  font-size: @font;
-  background: white;
-  color: gray;
-  box-shadow: 0 1px 4px hsla(0, 0, 0, 0.3);
-  border-radius: 50%;
-}
-
-.icon-edit {
-  @pos: 10px;
-  position: absolute;
-  right: @pos;
-  top: @pos;
+  width: 40px;
+  height: 30px;
+  text-align: center;
   font-size: 18px;
-  color: hsl(0, 0%, 67%);
+  color: #ccc;
   transition: 0.3s;
   cursor: pointer;
   &:hover {
-    color: hsl(0, 0%, 20%);
+    color: #fff;
   }
 }
 </style>
