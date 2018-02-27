@@ -33,14 +33,15 @@ export default {
 
 <style lang="less" scoped>
 @line: 2px solid #ddd;
-@pad: 15px;
 .tree-node {
   display: flex;
   position: relative;
   justify-content: center;
-  padding: @pad 0 5px;
+  padding: 15px 0 5px;
   &.padding {
-    padding: @pad;
+    @pad: 10px;
+    padding-left: @pad;
+    padding-right: @pad;
   }
 }
 
