@@ -81,19 +81,22 @@ export default {
 
 <style lang="less">
   .home-page {
-    display: flex;
-    position: relative;
     min-height: 100vh;
-    align-items: stretch;
     padding-left: 50px;
+    padding-right: 300px;
     .tree {
       flex-grow: 1;
       padding-top: 100px;
     }
     .info-bar {
+      position: fixed;
+      right: 0;
+      top: 0;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      // justify-content: center;
     }
     .icon-tranpose {
       font-size: 24px;
