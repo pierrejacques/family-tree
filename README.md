@@ -1,21 +1,5 @@
-# family-tree
+# 家族树
 
-> A Vue.js project
+节日里走亲访友开心热闹的同时，你有没有遇到过一些烦恼————面对眼熟的亲属（尤其是众多难以判断辈分的长辈）一筹莫展，不知道称呼他们什么，甚至对他们跟自己的关系也支支吾吾？
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+是时候理一理你的家谱了！由于家族庞大的树形结构加之复杂的联姻关系，通过数据存储、构建和展示家族树往往优于纸质的载体。本应用通过轻量的网页前端技术实现了一个可交互可编辑的家族树，并能够计算你和特定家族成员的称谓关系。试试吧！找你的父母和兄弟姐妹帮忙，让家族树枝繁叶茂吧！
