@@ -1,5 +1,10 @@
 <template>
-  <div v-if="person" class="tree-node" :class="{padding: !person.fellow}">
+  <div 
+    v-if="person"
+    class="tree-node major-visible-node"
+    :data-id="person.id"
+    :class="{padding: !person.fellow}"
+  >
     <div v-if="person.fellow" class="wing"></div>
     <individual 
       :data="person"
@@ -22,19 +27,20 @@ export default {
   props: ['person'],
   components: {
     individual: Individual,
-  }
+  },
 }
 </script>
 
 <style lang="less" scoped>
-@line: 1px solid #ccc;
+@line: 2px solid #ddd;
+@pad: 15px;
 .tree-node {
   display: flex;
   position: relative;
   justify-content: center;
-  padding: 20px 0;
+  padding: @pad 0 5px;
   &.padding {
-    padding: 20px;
+    padding: @pad;
   }
 }
 

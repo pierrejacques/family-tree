@@ -55,15 +55,15 @@ export default {
   methods: {
     ...mapMutations([
       'setCurrent',
-    ])
+    ]),
   }
 }
 </script>
 
 <style lang="less" scoped>
 
-  @male-color: #506bc2;
-  @female-color: #ff656c;
+  @male-color: #6378c0;
+  @female-color: #ff8187;
 
   .individual {
     text-align: center;
@@ -72,28 +72,29 @@ export default {
   }
 
   .head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @size: 50px;
-    @font: 24px;
+    @font: 20px;
     box-sizing: border-box;
-    font-family: SimSun, STSong;
     width: @size;
     height: @size;
+    line-height: @font;
+    font-size: @font;
     border-radius: 50%;
-    margin: auto;
     color: white;
     font-weight: bolder;
-    padding-top: (@size - @font) / 2 - 2px;
     background: white;
-    border: 1px solid @female-color;
+    border: 2px solid @female-color;
     color: @female-color;
     transition: 0.3s;
-    font-size: @font;
     &.me, &.current, &:hover {
       background: @female-color;
       color: white;
     }
     &.me {
-      box-shadow: 0 0 0 1px white, 0 0 0 2px @female-color;
+      box-shadow: 0 0 0 2px white, 0 0 0 4px lighten(@female-color, 10%);
     }
     &.male {
       border-color: @male-color;
@@ -103,16 +104,16 @@ export default {
         color: white;
       }
       &.me {
-        box-shadow: 0 0 0 1px white, 0 0 0 2px @male-color;
+        box-shadow: 0 0 0 2px white, 0 0 0 4px lighten(@male-color, 10%);
       }
     }
     &.minor {
-      opacity: 0.4;
+      opacity: 0.5;
       transform: scale(0.8) translate(-5px);
     }
   }
 
   .name {
-    line-height: 30px;
+    line-height: 35px;
   }
 </style>

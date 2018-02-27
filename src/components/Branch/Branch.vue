@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@line: 1px solid #bbb;
+@line: 2px solid #ddd;
 .tree-row {
   display: flex;
   justify-content: center;

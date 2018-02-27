@@ -1,6 +1,6 @@
 import IPA from 'ipa.js';
-import Person from './person';
-import Tree from './tree';
+import Person from './Person';
+import Tree from './Tree';
 
 const ipa = new IPA({
     meId: String,

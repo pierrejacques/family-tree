@@ -99,7 +99,6 @@ export default {
       font-size: 24px;
     }
     .root-branch {
-      margin: 20px;
       margin-right: 50px;
     }
   }
