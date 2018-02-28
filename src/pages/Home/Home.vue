@@ -2,14 +2,16 @@
   <div class="home-page">
     <setting></setting>
     <div class="tree" v-if="me">
-      <branch
-        class="root-branch"
-        :up="true"
-        :down="true"
-        :root="root"
-        :isRoot="true"
-        :layer="0"
-      ></branch>
+      <div class="inline-block">
+        <branch
+          class="root-branch"
+          :up="true"
+          :down="true"
+          :root="root"
+          :isRoot="true"
+          :layer="0"
+        ></branch>
+      </div>
     </div>
     <aside class="info-bar">
       <hero v-if="me" :info="{ character: '我', data: me }"></hero>
@@ -82,11 +84,16 @@ export default {
 <style lang="less">
   .home-page {
     min-height: 100vh;
-    padding-left: 50px;
-    padding-right: 300px;
     .tree {
-      flex-grow: 1;
-      padding-top: 100px;
+      overflow: auto;
+      box-sizing: border-box;
+      min-height: 100vh;
+      padding: 0 300px 0 80px;
+    }
+    .inline-block {
+      display: inline-block;
+      min-width: 100%;
+      margin: 100px 0;
     }
     .info-bar {
       position: fixed;
@@ -100,9 +107,6 @@ export default {
     }
     .icon-tranpose {
       font-size: 24px;
-    }
-    .root-branch {
-      margin-right: 50px;
     }
   }
 </style>
