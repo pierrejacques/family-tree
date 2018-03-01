@@ -16,22 +16,24 @@
     <aside class="info-bar">
       <hero v-if="me" :info="{ character: '我', data: me }"></hero>
       <template v-if="current">
-        <a class="btn" @click="transpose">
+        <a class="btn hover" @click="transpose">
           <i class="iconfont icon-tranpose"></i>
         </a>
         <hero :info="{ character: relation, data: current }"></hero>
       </template>
     </aside>
+    <mask-dialog v-if="isMaskOn"></mask-dialog>
   </div>
 </template>
 
 <script>
 import IPA from 'ipa.js';
 import axios from 'axios';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 import Branch from '@/components/Branch/Branch';
 import Hero from '@/components/Hero/Hero';
 import Setting from '@/components/Setting/Setting';
+import Dialog from '@/components/Dialog';
 
 const ipa = new IPA({
   members: Object,
@@ -44,6 +46,7 @@ export default {
     branch: Branch,
     hero: Hero,
     setting: Setting,
+    'mask-dialog': Dialog,
   },
   mounted() {
     let localData;
@@ -66,6 +69,9 @@ export default {
     }
   },
   computed: {
+    ...mapState([
+      'isMaskOn',
+    ]),
     ...mapGetters([
       'root',
       'me',
@@ -75,7 +81,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'transpose'
+      'transpose',
     ]),
   }
 };
@@ -88,7 +94,7 @@ export default {
       overflow: auto;
       box-sizing: border-box;
       min-height: 100vh;
-      padding: 0 300px 0 80px;
+      padding: 0 350px 0 80px;
     }
     .inline-block {
       display: inline-block;
@@ -103,10 +109,15 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      // justify-content: center;
+      padding-left: 50px;
+      background: linear-gradient(to left, hsla(0, 0%, 100%, 80%) 80%, hsla(0, 0%, 100%, 0) 100%);
+      pointer-events: none;
     }
     .icon-tranpose {
       font-size: 24px;
+    }
+    .hover:hover {
+      background: #eee;
     }
   }
 </style>

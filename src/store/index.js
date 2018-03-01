@@ -5,10 +5,16 @@ import mutations from './mutations';
 Vue.use(Vuex);
 
 const state = {
+  // tree related
   tree: {},
   isPater: true,
   treeType: 'grand',
   newCommer: {},
+
+  // dialog related
+  isMaskOn: false,
+  dialogAction: null,
+  dialogCache: {},
 };
 
 const getters = {

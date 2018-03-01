@@ -52,4 +52,10 @@ export default {
       fellow.addOffspring(child);
     });
   },
+  expireFromTree(state, id) {
+    const person = state.tree.members[id];
+    if (person) person.expire();
+    state.tree.current = null;
+    delete state.tree.members[id];
+  },
 };

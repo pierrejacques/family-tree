@@ -2,21 +2,29 @@
   <div class="hero" :class="{female: !data.isMale}">
     <p class="character">{{character}}</p>
     <infos
-      v-if="!addable"
+      v-if="!addable && !deleting"
       class="content-area" 
       :data="data" 
       :editable="editable"
       :form="editForm"
       @changeGender="setGender"
     ></infos>
+    <div 
+      v-if="deleting"
+      class="content-area"
+      >
+      <h3>确定要删除成员{{data.firstname}}{{data.lastname}}吗？</h3>
+      <a @click="deleting = false" class="btn">取消</a>
+      <a @click="expireFromTree(data.id)" class="btn warning">删除</a>
+    </div>
     <add 
-      v-else 
+      v-if="addable" 
       class="content-area"
       :data="data"
       @added="addable = false"
     ></add>
     <div class="operator-group">
-      <template v-if="!editable && !addable"> <!-- 根选项 -->
+      <template v-if="!editable && !addable && !deleting"> <!-- 根选项 -->
         <a class="operator" @click="toEdit">
           <i class="iconfont icon-edit"></i>
         </a>
@@ -25,6 +33,12 @@
         </a>
         <a class="operator" v-if="current && current.id === data.id" @click="setMe()">
           <i class="iconfont icon-set-me"></i>
+        </a>
+        <a class="operator" 
+          v-if="current && current.id === data.id" 
+          :class="{disabled:!deletable()}" 
+          @click="deletable() ? deleting = true : ''">
+          <i class="iconfont icon-delete"></i>
         </a>
       </template>
       <template v-if="editable"> <!-- 编辑控制 -->
@@ -37,7 +51,12 @@
       </template>
       <template v-if="addable"> <!-- 添加控制 -->
         <a class="operator" @click="addable = false">
-          <i class="iconfont icon-cancel"></i>
+          <i class="iconfont icon-back"></i>
+        </a>
+      </template>
+      <template v-if="deleting"> <!-- 删除控制 -->
+        <a class="operator" @click="deleting = false">
+          <i class="iconfont icon-back"></i>
         </a>
       </template>
     </div>
@@ -67,6 +86,7 @@ export default {
     return {
       editable: false,
       addable: false,
+      deleting: false,
       editForm: {},
     }
   },
@@ -95,6 +115,7 @@ export default {
     ...mapMutations([
       'setMe',
       'changeInfo',
+      'expireFromTree',
     ]),
     toEdit() {
       this.editForm.firstname = this.data.firstname;
@@ -112,7 +133,16 @@ export default {
     },
     setGender(val) {
       this.editForm.isMale = val;
-    }
+    },
+    deletable() {
+      return (
+        Boolean(this.data.father) + 
+        Boolean(this.data.mother) +
+        Boolean(this.data.fellow) +
+        Boolean(this.data.exs.length > 0) +
+        Boolean(this.data.offsprings.length > 0)
+      ) <= 2;
+    },
   }
 }
 </script>
@@ -129,7 +159,8 @@ export default {
   width: 250px;
   margin: 20px;
   background: #d3eaff;
-  box-shadow: 0 2px 7px #485c6b66;
+  box-shadow: 0 2px 6px #3334;
+  pointer-events: all;
   &.female {
     background: #ffe0d2;
   }
@@ -170,6 +201,10 @@ export default {
   cursor: pointer;
   &:hover {
     color: #fff;
+  }
+  &.disabled {
+    cursor: not-allowed;
+    color: #aaa;
   }
 }
 </style>
