@@ -49,24 +49,23 @@ export default {
     'mask-dialog': Dialog,
   },
   mounted() {
-    let localData;
-    try {
-      localData = JSON.parse(localStorage.getItem('tree'));
-    } catch(e) {
-      localData = null;
-    }
-    if (ipa.check(localData)) {
-      this.$store.commit('buildTree', localData);
-    } else {
-      axios.get('static/tree.json').then(
-        res => {
-          this.$store.commit('buildTree', res.data);
-        },
-        error => {
-          throw new Error(error);
+    axios.get('api/latestTree').then(
+      res => {
+        const data = res.data.tree;
+        let treeData;
+        try {
+          treeData = JSON.parse(data.data);
+        } catch(e) {
+          throw new Error(e);
         }
-      );
-    }
+        if (res.data.hasTree && ipa.check(treeData)) {
+          this.$store.commit('buildTree', treeData);
+        }
+      },
+      err => {
+
+      }
+    );
   },
   computed: {
     ...mapState([

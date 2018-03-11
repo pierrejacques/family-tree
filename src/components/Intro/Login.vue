@@ -17,7 +17,6 @@ export default {
     return {
       username: '',
       password: '',
-      msg: '',
     }
   },
   computed: {
@@ -33,7 +32,9 @@ export default {
         password: this.password,
       }).then(
         res => {
-          this.msg = res.data.msg
+          if (res.data.isValid) {
+            this.$router.push({ name: 'Mytree' }); // TODO: 登陆成功后的逻辑
+          }
         },
         error => {
           

@@ -34,7 +34,7 @@ export default {
         password: this.password,
       }).then(
         res => {
-          this.msg = res.data.msg
+          this.msg = res.data.msg; // TODO: 注册成功后的逻辑
         },
         error => {
           

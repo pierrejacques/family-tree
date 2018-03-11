@@ -105,7 +105,7 @@ export default class Person {
   expire() {
     if (this.fellow) this.fellow.fellow = null;
     if (this.father) this.father.removeOffspring(this);
-    if (this.mother) this.father.removeOffspring(this);
+    if (this.mother) this.mother.removeOffspring(this);
     this.exs.forEach(person => {
       const idx = person.exs.indexOf(this);
       if (idx !== -1) {

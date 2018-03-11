@@ -46,7 +46,7 @@ export default {
   methods: {
     checkState() {
       if (this.userInfo && this.userInfo.loggedIn === true) {
-          this.$router.push('Mytree');
+          this.$router.push({ name: 'Mytree' });
       }
     },
     triggerState() {

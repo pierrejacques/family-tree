@@ -19,9 +19,6 @@ export default {
   setTree(state, type) {
     state.treeType = type.name;
   },
-  saveTree(state) {
-    localStorage.setItem('tree', state.tree.toString());
-  },
   changeInfo(state, { id, data }) {
     const person = state.tree.members[id];
     person.firstname = data.firstname;

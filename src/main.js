@@ -21,7 +21,7 @@ axios.get('api/userinfo').then(
     store.commit('setLogin', res.data.data);
     const current = router.currentRoute.path;
     if (res.data.data && res.data.data.loggedIn === false) {
-      router.push('Intro');
+      router.push({ name: 'Intro' });
     }
   },
   err => {

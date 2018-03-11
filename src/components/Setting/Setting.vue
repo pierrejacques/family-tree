@@ -18,6 +18,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import axios from 'axios';
 
 const treeTypes = [
   {
@@ -57,6 +58,7 @@ export default {
     ...mapState([
       'isPater',
       'treeType',
+      'tree',
     ]),
     treeTypes() {
       const arr = treeTypes.sort((a, b) => ((a.name === this.treeType) < (b.name === this.treeType)));
@@ -70,7 +72,6 @@ export default {
   },
 	methods: {
 		...mapMutations([
-      'saveTree',
       'setPater',
       'setTree',
     ]),
@@ -84,6 +85,18 @@ export default {
       this.treeFolded = true;
       this.setPater(type.name === 'pater');
     },
+    saveTree() {
+      axios.post('api/savetree', {
+        data: this.tree.toString(),
+      }).then(
+        res => {
+          
+        },
+        err => {
+
+        }
+      )
+    }
 	},
 }
     
