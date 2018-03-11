@@ -109,8 +109,8 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-left: 50px;
-      background: linear-gradient(to left, hsla(0, 0%, 100%, 80%) 80%, hsla(0, 0%, 100%, 0) 100%);
+      padding-left: 20px;
+      background: #fffa;
       pointer-events: none;
     }
     .icon-tranpose {

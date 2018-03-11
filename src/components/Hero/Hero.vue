@@ -1,28 +1,28 @@
 <template>
   <div class="hero" :class="{female: !data.isMale}">
     <p class="character">{{character}}</p>
-    <infos
-      v-if="!addable && !deleting"
-      class="content-area" 
-      :data="data" 
-      :editable="editable"
-      :form="editForm"
-      @changeGender="setGender"
-    ></infos>
-    <div 
-      v-if="deleting"
-      class="content-area"
-      >
-      <h3>确定要删除成员{{data.firstname}}{{data.lastname}}吗？</h3>
-      <a @click="deleting = false" class="btn">取消</a>
-      <a @click="expireFromTree(data.id)" class="btn warning">删除</a>
-    </div>
     <add 
       v-if="addable" 
       class="content-area"
       :data="data"
       @added="addable = false"
     ></add>
+    <div 
+      v-else-if="deleting"
+      class="content-area"
+      >
+      <h3>确定要删除成员{{data.firstname}}{{data.lastname}}吗？</h3>
+      <a @click="deleting = false" class="btn btn-safe">取消</a>
+      <a @click="expireFromTree(data.id)" class="btn btn-warning">删除</a>
+    </div>
+    <infos
+      v-else
+      class="content-area" 
+      :data="data" 
+      :editable="editable"
+      :form="editForm"
+      @changeGender="setGender"
+    ></infos>
     <div class="operator-group">
       <template v-if="!editable && !addable && !deleting"> <!-- 根选项 -->
         <a class="operator" @click="toEdit">
@@ -40,6 +40,11 @@
           @click="deletable() ? deleting = true : ''">
           <i class="iconfont icon-delete"></i>
         </a>
+        <!-- <a class="operator"
+          v-if="current && current.id === data.id"
+          @click="clearCurrent">
+          <i class="iconfont icon-cancel"></i>
+        </a> -->
       </template>
       <template v-if="editable"> <!-- 编辑控制 -->
         <a class="operator" @click="commitForm">
@@ -116,6 +121,7 @@ export default {
       'setMe',
       'changeInfo',
       'expireFromTree',
+      'clearCurrent',
     ]),
     toEdit() {
       this.editForm.firstname = this.data.firstname;
@@ -204,7 +210,7 @@ export default {
   }
   &.disabled {
     cursor: not-allowed;
-    color: #aaa;
+    color: #9f9f9f;
   }
 }
 </style>

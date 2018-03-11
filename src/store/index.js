@@ -5,6 +5,9 @@ import mutations from './mutations';
 Vue.use(Vuex);
 
 const state = {
+  // login state
+  userInfo: null,
+
   // tree related
   tree: {},
   isPater: true,
