@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "node ./bin/www",
+    "start": "node ./server/bin/www",
     "build": "node build/build.js",
     "mock": "rollup -c; node mock/index.js"
   },
