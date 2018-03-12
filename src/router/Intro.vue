@@ -35,20 +35,12 @@ export default {
       'userInfo',
   ])
   },
-  watch: {
-  userInfo() {
-    this.checkState();
-  }
-  },
   created() {
-    this.checkState();
-  },
-  methods: {
-    checkState() {
-      if (this.userInfo && this.userInfo.loggedIn === true) {
+    if (this.userInfo && this.userInfo.loggedIn === true) {
           this.$router.push({ name: 'Mytree' });
       }
-    },
+  },
+  methods: {
     triggerState() {
       this.isLogging = !this.isLogging;
     }

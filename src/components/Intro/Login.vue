@@ -10,6 +10,7 @@
 
 <script>
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'login',
@@ -25,6 +26,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations([
+      'setLogin',
+    ]),
     submit() {
       if (!this.submittable) return;
       axios.post('api/login', {
@@ -33,7 +37,11 @@ export default {
       }).then(
         res => {
           if (res.data.isValid) {
-            this.$router.push({ name: 'Mytree' }); // TODO: 登陆成功后的逻辑
+            this.setLogin({
+              username: this.username,
+              loggedIn: true,
+            });
+            this.$router.push({ name: 'Mytree' });
           }
         },
         error => {

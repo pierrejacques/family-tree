@@ -51,20 +51,20 @@ export default {
   mounted() {
     axios.get('api/latestTree').then(
       res => {
-        const data = res.data.tree;
-        let treeData;
-        try {
-          treeData = JSON.parse(data.data);
-        } catch(e) {
-          throw new Error(e);
-        }
-        if (res.data.hasTree && ipa.check(treeData)) {
-          this.$store.commit('buildTree', treeData);
+        if (res.data.hasTree) {
+          let treeData;
+          try {
+            treeData = JSON.parse(res.data.tree.data);
+          } catch(e) {
+            console.log(e); // 解析错误的情况
+          }
+          if (res.data.hasTree && ipa.check(treeData)) {
+            this.buildTree(treeData);
+          }
+        } else {
+          this.newTree();
         }
       },
-      err => {
-
-      }
     );
   },
   computed: {
@@ -75,12 +75,14 @@ export default {
       'root',
       'me',
       'current',
-      'relation',
+      'relation', // FIXME: 交换时没有更新
     ]),
   },
   methods: {
     ...mapMutations([
       'transpose',
+      'buildTree',
+      'newTree',
     ]),
   }
 };
