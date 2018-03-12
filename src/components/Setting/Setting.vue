@@ -147,7 +147,7 @@ export default {
   position: relative;
   @w: 200px;
   width: @w;
-  background: lighten(@background, 8%);
+  background: lighten(@background, 5%);
   transition: 0.3s;
   &.folded {
     width: 0;

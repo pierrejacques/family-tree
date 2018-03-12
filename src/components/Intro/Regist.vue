@@ -38,7 +38,9 @@ export default {
       }).then(
         res => {
           this.msg = res.data.msg;
-          // TODO: regist logic
+          if (res.data.success) {
+            location.reload();
+          }
         },
         error => {},
       )

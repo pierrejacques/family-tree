@@ -41,7 +41,7 @@ export default {
               username: this.username,
               loggedIn: true,
             });
-            this.$router.push({ name: 'Mytree' });
+            location.reload();
           }
         },
         error => {
