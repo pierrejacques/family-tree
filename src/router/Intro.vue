@@ -52,10 +52,9 @@ export default {
 .intro-page {
   display: flex;
   align-items: flex-start;
-  margin: 0 100px;
-  padding: 50px;
+  padding: 50px 100px;
   min-height: 100vh;
-  box-shadow: 0 0 10px #eeee;
+  background: #2e4057;
   .introduction {
     flex-grow: 1;
   }
@@ -67,7 +66,7 @@ export default {
     background: white;
     border: 1px solid #eee;
     border-radius: 5px;
-    box-shadow: 0 2px 4px #dddd;
+    box-shadow: 0 2px 4px #0006;
     .state-title {
       margin-top: 35px;
     }

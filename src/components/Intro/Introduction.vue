@@ -8,12 +8,12 @@
 <script>
 export default {
   name: 'introduction',
-
 }
 </script>
 
 <style lang="less" scoped>
 .introduction {
   text-align: center;
+  color: white;
 }
 </style>

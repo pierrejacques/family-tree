@@ -1,8 +1,9 @@
 <template>
   <div class="regist">
     <form @submit.stop="submit">
-      <input type="text" @input="checkUsername" v-model="username">
-      <input type="password" v-model="password">
+      <input type="text" placeholder="请输入用户名" @input="checkUsername" v-model="username">
+      <input type="text" placeholder="请输入昵称" v-model="nickname">
+      <input type="password" placeholder="请输入密码" v-model="password">
       <input type="submit" class="pointer">
     </form>
   </div>
@@ -16,6 +17,7 @@ export default {
   data() {
     return {
       username: '',
+      nickname: '',
       password: '',
       msg: '',
       isValid: false,
@@ -32,6 +34,7 @@ export default {
       axios.post('api/regist', {
         username: this.username,
         password: this.password,
+        nickname: this.nickname,
       }).then(
         res => {
           this.msg = res.data.msg;

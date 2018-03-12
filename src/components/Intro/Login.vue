@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <form @submit.stop="submit">
-      <input type="text" v-model="username">
+      <input type="text" v-model="username" placeholder="请输入">
       <input type="password" v-model="password">
       <input type="submit" class="pointer">
     </form>

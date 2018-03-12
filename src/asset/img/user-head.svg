@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="87px" height="87px" viewBox="0 0 87 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>user-head</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-554.000000, -53.000000)">
+        <g id="user-head" transform="translate(554.000000, 53.000000)" fill="#FFFFFF">
+            <path d="M43.5,87 C19.4756134,87 0,67.5243866 0,43.5 C0,19.4756134 19.4756134,0 43.5,0 C67.5243866,0 87,19.4756134 87,43.5 C87,67.5243866 67.5243866,87 43.5,87 Z M43,47 C52.3888407,47 60,39.3888407 60,30 C60,20.6111593 52.3888407,13 43,13 C33.6111593,13 26,20.6111593 26,30 C26,39.3888407 33.6111593,47 43,47 Z M15,68.9197838 C31.8618763,68.9197838 61.1216108,68.9197838 72,68.9197838 C70.3434896,57.8979468 65.4166413,50.0080837 57.219455,45.2501943 C52.6273993,49.6627172 48.0542477,51.8689786 43.5,51.8689786 C38.9457523,51.8689786 34.3991483,49.6627172 29.8601879,45.2501943 C21.4940141,49.6627172 16.5406181,57.5525804 15,68.9197838 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>
