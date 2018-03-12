@@ -11,7 +11,7 @@ const ipa = new IPA({
 })
 
 module.exports = async function (req, res, next) {
-    const data = req.body
+    const data = req.body;
     if (ipa.check(data) && data.username && data.password && data.nickname) {
         const code = 200;
         const user = await db.addUser(data);

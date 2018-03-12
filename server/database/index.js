@@ -49,7 +49,7 @@ class Database {
         if (result) return false;
         const salt = rand(160, 36);
         const hash = crypto.createHash('sha256').update(`${salt}${password}`).digest('hex');
-        return this.Users.create({ 
+        return await this.Users.create({ 
             username,
             nickname,
             hash,
