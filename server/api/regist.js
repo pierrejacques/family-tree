@@ -7,12 +7,11 @@ const getExpire = require('../lib/getExpire');
 const ipa = new IPA({
     username: String,
     password: String,
-    nickname: String,
 })
 
 module.exports = async function (req, res, next) {
     const data = req.body;
-    if (ipa.check(data) && data.username && data.password && data.nickname) {
+    if (ipa.check(data) && data.username && data.password) {
         const code = 200;
         const user = await db.addUser(data);
         res.status = 200;

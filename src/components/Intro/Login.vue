@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
     <form @submit.stop="submit">
-      <input type="text" v-model="username" placeholder="请输入">
-      <input type="password" v-model="password">
-      <input type="submit" class="pointer">
+      <input type="text" v-model="username" placeholder="用户名">
+      <input type="password" placeholder="密码" v-model="password">
+      <input type="submit" class="pointer" value="登陆" :class="{ disabled: !submittable }">
     </form>
   </div>
 </template>

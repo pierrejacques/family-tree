@@ -188,10 +188,10 @@ export default {
   }
   .content-area {
     flex-grow: 1;
-    padding: @pad 0;
+    padding: @pad 20px;
   }
   .operator-group {
-    padding: @pad 5px @pad;
+    padding: @pad 5px;
     background: #666c;
   }
 }
