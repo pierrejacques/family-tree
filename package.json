@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "node ./server/bin/www",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "serve": "pm2 start ./server/bin/www; pm2 list --watch"
   },
   "dependencies": {
     "axios": "^0.18.0",
