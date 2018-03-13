@@ -14,20 +14,23 @@
       <div class="user-info pointer" @click="triggleInfo">
         <img class="user-head" v-if="infoFolded" src="../../asset/img/user-head.svg">
         <i v-else class="iconfont icon-back"></i>
+        <tooltip v-if="infoFolded">查看用户信息</tooltip>
       </div>
       <button class="operator" @click="saveTree">
         <i class="iconfont icon-save"></i>
+        <tooltip>保存当前家谱</tooltip>
       </button>
-      <div class="folder" :class="{unfolded: !parentFolded}">
+      <div class="folder">
         <button class="operator" v-for="(type, idx) in parentTypes" :key="idx" @click="selectParent(type)">
           <i class="iconfont" :class="`icon-${type.name}`"></i>
+          <tooltip position="bottom">{{type.desc}}</tooltip>
         </button>
       </div>
-      <div class="folder" :class="{unfolded: !treeFolded}">
+      <!-- <div class="folder">
         <button class="operator" v-for="(type, idx) in treeTypes" :key="idx" @click="selectTree(type)">
           <i class="iconfont" :class="`icon-${type.name}-tree`"></i>
         </button>
-      </div>
+      </div> -->
   </div>
   </aside>
 
@@ -36,6 +39,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import axios from 'axios';
+import Tooltip from '../Shared/Tooltip';
 
 const treeTypes = [
   {
@@ -55,16 +59,19 @@ const treeTypes = [
 const parentTypes = [
   {
     name: 'pater',
-    desc: '父系树：按父亲向上拓展'
+    desc: '父系树'
   },
   {
     name: 'mater',
-    desc: '母系树：按母亲向上拓展'
+    desc: '母系树'
   }
 ]
 
 export default {
   name: 'setting',
+  components: {
+    tooltip: Tooltip,
+  },
   data() {
     return {
       parentFolded: true,
@@ -182,8 +189,6 @@ export default {
   }
 }
 
-
-
 .setting {
   height: 100vh;
   z-index: 10;
@@ -194,6 +199,7 @@ export default {
   box-shadow: 2px 0 7px rgba(0, 0, 0, 0.1);
 }
 .user-info {
+  position: relative;
   @margin-x: 10px;
   width: @width - 2 * @margin-x;
   margin: 0 @margin-x 10px;
@@ -225,19 +231,15 @@ export default {
     background: #555;
   }
 }
-.folder { // FIXME: 优化less结构
-  width: @width;
+.folder {
+  display: inline;
   text-align: left;
-  &.unfolded {
-    width: @width * 3;
-  }
-  .operator {
-    display: inline-block;
-  }
+  white-space: nowrap;
 }
 .icon-back {
   color: #ccc;
   margin-left: 5px;
+  line-height: 35px;
 }
 
 .pointer {

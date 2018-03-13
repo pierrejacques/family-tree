@@ -73,7 +73,6 @@ export default {
   .details {
     display: block;
     margin: auto;
-    width: 200px;
     dt {
       white-space: pre;
       width: 30px;

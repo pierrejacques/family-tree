@@ -16,7 +16,6 @@ module.exports = async function (req, res, next) {
             msg: '请求成功',
             data: {
                 username: user.username,
-                nickname: user.nickname,
                 loggedIn: true,
             }
         })

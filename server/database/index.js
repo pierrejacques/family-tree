@@ -11,13 +11,11 @@ const userSchema = new Schema({
     hash: String,
     salt: String,
     validTill: Date, // 有效登陆时间
-    nickname: String, // 昵称
     trees: [String], /* treeId */
 });
 
 const treeSchema = new Schema({
     createOn: Date,
-    updateOn: Date,
     users: [String], /* username */
     data: String,
     hash: String,
@@ -44,14 +42,13 @@ class Database {
         });
     }
 
-    async addUser({ username, password, nickname}) {
+    async addUser({ username, password }) {
         const result = await this.findUser(username);
         if (result) return false;
         const salt = rand(160, 36);
         const hash = crypto.createHash('sha256').update(`${salt}${password}`).digest('hex');
         return await this.Users.create({ 
             username,
-            nickname,
             hash,
             salt,
             trees: [],
@@ -108,7 +105,6 @@ class Database {
         const tree = await this.Trees.create({ 
             data,
             createOn: new Date(),
-            updateOn: new Date(),
             hash,
         });
         await this._addTree2User(tree, user);

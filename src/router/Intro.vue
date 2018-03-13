@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      isLogging: false,
+      isLogging: true,
     }
   },
   computed: {
@@ -54,7 +54,7 @@ export default {
   align-items: flex-start;
   padding: 50px 100px;
   min-height: 100vh;
-  background: #2e4057;
+  background: #3b415f;
   .introduction {
     flex-grow: 1;
   }
@@ -83,10 +83,10 @@ export default {
       line-height: 32px;
       font-size: 16px;
       border: 1px solid #ccc;
-      margin: 10px 0;
+      margin: 12px 0;
       text-indent: .5em;
       border-radius: 3px;
-      font-weight: lighter;
+      font-weight: light;
     }
     input[type=submit] {
       @valid-color: #2bc538;
@@ -96,10 +96,21 @@ export default {
       border-color: @valid-color;
       color: white;
       font-weight: normal;
+      &.disabled { cursor: not-allowed; }
     }
   }
   .pointer {
     cursor: pointer;
+  }
+  .warn {
+    position: relative;
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+    text-align: left;
+    color: red;
   }
 }
 </style>
