@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "node ./server/bin/www",
-    "build": "node build/build.js",
-    "mock": "rollup -c; node mock/index.js"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
