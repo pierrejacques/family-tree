@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <form @submit.stop="submit">
+    <form @submit.prevent="submit">
       <input type="text" v-model="username" placeholder="用户名">
       <input type="password" placeholder="密码" v-model="password">
       <input type="submit" class="pointer" value="登陆" :class="{ disabled: !submittable }">

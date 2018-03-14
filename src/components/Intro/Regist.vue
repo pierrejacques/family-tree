@@ -1,6 +1,6 @@
 <template>
   <div class="regist">
-    <form @submit.stop="submit">
+    <form @submit.prevent="submit">
       <input type="text" placeholder="用户名" @input="checkUsername" v-model="username">
       <p v-if="username && !isValid" class="warn">用户名已被占用，请换一个名字</p>
       <input type="password" placeholder="密码" v-model="password">
