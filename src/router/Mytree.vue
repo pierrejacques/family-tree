@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <setting></setting>
+    <setting class="settings" />
     <div class="tree" v-if="me">
       <div class="inline-block">
         <branch
@@ -22,7 +22,7 @@
         <hero :info="{ character: relation, data: current }"></hero>
       </template>
     </aside>
-    <mask-dialog v-if="isMaskOn"></mask-dialog>
+    <!-- <mask-dialog v-if="isMaskOn"></mask-dialog> -->
   </div>
 </template>
 
@@ -33,7 +33,7 @@ import { mapState, mapGetters, mapMutations } from 'vuex';
 import Branch from '@/components/Branch/Branch';
 import Hero from '@/components/Hero/Hero';
 import Setting from '@/components/Setting/Setting';
-import Dialog from '@/components/Dialog';
+// import Dialog from '@/components/Dialog';
 
 const ipa = new IPA({
   members: Object,
@@ -46,7 +46,7 @@ export default {
     branch: Branch,
     hero: Hero,
     setting: Setting,
-    'mask-dialog': Dialog,
+    // 'mask-dialog': Dialog,
   },
   mounted() {
     axios.get('api/latestTree').then(
@@ -68,9 +68,9 @@ export default {
     );
   },
   computed: {
-    ...mapState([
-      'isMaskOn',
-    ]),
+    // ...mapState([
+    //   'isMaskOn',
+    // ]),
     ...mapGetters([
       'root',
       'me',

@@ -101,7 +101,7 @@ export default {
   mounted() {
     let interval = setInterval(() => {
       if (this.tree) {
-        this.saveTree();
+        this.saveTree(true);
       }
     }, 1 * 60 * 1000);
   },
@@ -124,17 +124,21 @@ export default {
       this.treeFolded = true;
       this.setPater(type.name === 'pater');
     },
-    saveTree() {
+    saveTree(passive = false) {
+      this.msg = '';
       axios.post('api/savetree', {
         data: this.tree.toString(),
       }).then(
         res => {
-          console.log(1);
+          this.msg = '';
+          if (res.data.result === 1) {
+            this.msg = passive ? '已自动保存' : '保存成功';
+          }
         },
         err => {
-
-        }
-      )
+          this.msg = '';
+        },
+      );
     },
     triggleInfo() {
       this.infoFolded = !this.infoFolded;
@@ -144,7 +148,7 @@ export default {
       this.$router.push({ name: 'Intro' });
       axios.get('api/logout').then(
         res => {
-
+      
         },
         err => {},
       )
@@ -160,6 +164,7 @@ export default {
 .aside-wrapper {
   display: flex;
   position: fixed;
+  z-index: 1;
 }
 
 .stretch-box {
@@ -203,7 +208,6 @@ export default {
 
 .setting {
   height: 100vh;
-  z-index: 10;
   left: 0;
   width: @width;
 	background: @background;
