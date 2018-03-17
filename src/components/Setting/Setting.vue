@@ -126,7 +126,7 @@ export default {
     },
     saveTree(passive = false) {
       this.msg = '';
-      axios.post('api/savetree', {
+      axios.post('/api/savetree', {
         data: this.tree.toString(),
       }).then(
         res => {
@@ -146,7 +146,7 @@ export default {
     logout() {
       this.setLogin({ loggedIn: false });
       this.$router.push({ name: 'Intro' });
-      axios.get('api/logout').then(
+      axios.get('/api/logout').then(
         res => {
       
         },

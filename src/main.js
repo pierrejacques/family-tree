@@ -10,7 +10,7 @@ Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
   if (store.state.userInfo === null) { // 登录信息未知
-    axios.get('api/userinfo').then(
+    axios.get('/api/userinfo').then(
       res => {
         store.commit('setLogin', res.data.data);
         const current = router.currentRoute.path;

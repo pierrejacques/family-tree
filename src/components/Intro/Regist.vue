@@ -37,7 +37,7 @@ export default {
   methods: {
     submit() {
       if (!this.submittable) return;
-      axios.post('api/regist', {
+      axios.post('/api/regist', {
         username: this.username,
         password: this.password,
       }).then(
@@ -55,7 +55,7 @@ export default {
         this.isValid = false;
         return;
       }
-      axios.get('api/checkusername', {
+      axios.get('/api/checkusername', {
         params: {
           username: this.username,
         },

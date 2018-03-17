@@ -49,7 +49,7 @@ export default {
     // 'mask-dialog': Dialog,
   },
   mounted() {
-    axios.get('api/latestTree').then(
+    axios.get('/api/latestTree').then(
       res => {
         if (res.data.hasTree) {
           let treeData;

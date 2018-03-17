@@ -36,7 +36,7 @@ export default {
       if (!this.submittable) return;
       this.msg = '';
       this.warn = false;
-      axios.post('api/login', {
+      axios.post('/api/login', {
         username: this.username,
         password: this.password,
       }).then(
