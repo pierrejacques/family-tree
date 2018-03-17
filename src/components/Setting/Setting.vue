@@ -103,7 +103,7 @@ export default {
       if (this.tree) {
         this.saveTree(true);
       }
-    }, 1 * 60 * 1000);
+    }, 5 * 60 * 1000);
   },
   beforeDestroy() {
     clearInterval(interval);
