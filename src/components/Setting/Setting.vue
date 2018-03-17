@@ -65,7 +65,9 @@ const parentTypes = [
     name: 'mater',
     desc: '母系树'
   }
-]
+];
+
+let interval;
 
 export default {
   name: 'setting',
@@ -96,6 +98,16 @@ export default {
       return this.parentFolded ? arr.slice(0, 1) : arr;
     },
   },
+  mounted() {
+    let interval = setInterval(() => {
+      if (this.tree) {
+        this.saveTree();
+      }
+    }, 1 * 60 * 1000);
+  },
+  beforeDestroy() {
+    clearInterval(interval);
+  },
 	methods: {
 		...mapMutations([
       'setPater',
@@ -117,7 +129,7 @@ export default {
         data: this.tree.toString(),
       }).then(
         res => {
-          
+          console.log(1);
         },
         err => {
 

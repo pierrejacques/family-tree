@@ -3,6 +3,7 @@
     <form @submit.prevent="submit">
       <input type="text" v-model="username" placeholder="用户名">
       <input type="password" placeholder="密码" v-model="password">
+      <p v-if="msg" class="warn" :class="{ normal: !warn }">{{msg}}</p>
       <input type="submit" class="pointer" value="登陆" :class="{ disabled: !submittable }">
     </form>
   </div>
@@ -18,6 +19,8 @@ export default {
     return {
       username: '',
       password: '',
+      msg: '',
+      warn: false,
     }
   },
   computed: {
@@ -31,6 +34,8 @@ export default {
     ]),
     submit() {
       if (!this.submittable) return;
+      this.msg = '';
+      this.warn = false;
       axios.post('api/login', {
         username: this.username,
         password: this.password,
@@ -42,10 +47,16 @@ export default {
               loggedIn: true,
             });
             location.reload();
+            this.msg = '登陆成功';
+            this.warn = false;
+          } else {
+            this.msg = '';
+            this.warn = true;
           }
         },
         error => {
-          
+          this.msg = '服务错误！';
+          this.warn = true;
         }
       )
     },
@@ -54,4 +65,7 @@ export default {
 </script>
 
 <style scoped>
+.normal {
+  color: #447fff;
+}
 </style>
