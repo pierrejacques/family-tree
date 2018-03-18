@@ -6,6 +6,14 @@
         <p class="user-title">{{userInfo.username}}</p>
         <p class="user-title" v-if="userInfo.nickname">{{userInfo.nickname}}</p>
         <div class="function-area">
+          家谱历史版本
+          <ul>
+            <li v-for="tree in historyTrees" :key="tree._id">
+              <a class="pointer" @click.prevent="getTree(tree._id)">
+                {{tree.createdOn}}
+              </a>
+            </li>
+          </ul>
           <a class="btn-logout pointer" @click="logout">退出登陆</a>
         </div>
       </div>
@@ -37,6 +45,7 @@
 </template>
 
 <script>
+import IPA from 'ipa.js';
 import { mapState, mapMutations } from 'vuex';
 import axios from 'axios';
 import Tooltip from '../Shared/Tooltip';
@@ -79,6 +88,7 @@ export default {
       parentFolded: true,
       treeFolded: true,
       infoFolded: true,
+      historyTrees: [],
     }
   },
   computed: {
@@ -99,11 +109,8 @@ export default {
     },
   },
   mounted() {
-    let interval = setInterval(() => {
-      if (this.tree) {
-        this.saveTree(true);
-      }
-    }, 5 * 60 * 1000);
+    this.getHistoryInfo();
+    this.startAutoSave();
   },
   beforeDestroy() {
     clearInterval(interval);
@@ -114,6 +121,32 @@ export default {
       'setTree',
       'setLogin',
     ]),
+    startAutoSave() {
+      let interval = setInterval(() => {
+        if (this.tree) {
+          this.saveTree(true);
+        }
+      }, 5 * 60 * 1000);
+    },
+    getHistoryInfo() {
+      const schema = new IPA({
+        code: Number,
+        data: [{
+          _id: String,
+          createdOn: String,
+        }],
+        msg: String,
+        success: false,
+      });
+      axios.get('/api/gethistory').then(
+        res => {
+          const result = schema.guarantee(res.data);
+          if (result.success) {
+            this.historyTrees = result.data;
+          }
+        }
+      );
+    },
     selectTree(type) {
       this.treeFolded = !this.treeFolded;
       this.parentFolded = true;
@@ -133,6 +166,8 @@ export default {
           this.msg = '';
           if (res.data.result === 1) {
             this.msg = passive ? '已自动保存' : '保存成功';
+          } else if (res.data.result === -1 && !passive) {
+            this.msg = '没有变更';
           }
         },
         err => {
@@ -142,6 +177,9 @@ export default {
     },
     triggleInfo() {
       this.infoFolded = !this.infoFolded;
+    },
+    getTree(_id) {
+      console.log(`to get tree ${_id}`); // TODO:
     },
     logout() {
       this.setLogin({ loggedIn: false });
@@ -169,7 +207,7 @@ export default {
 
 .stretch-box {
   position: relative;
-  @w: 200px;
+  @w: 300px;
   width: @w;
   background: lighten(@background, 5%);
   transition: 0.3s;
