@@ -55,7 +55,7 @@ export default {
           }
         },
         error => {
-          this.msg = '服务错误！';
+          this.msg = '对不起，服务错误！';
           this.warn = true;
         }
       )
