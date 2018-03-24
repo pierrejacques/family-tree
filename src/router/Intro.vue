@@ -55,7 +55,7 @@ export default {
   justify-content: center;
   padding: 0 100px;
   min-height: 100vh;
-  background: url(../asset/img/familytree.png), #eee;
+  background: url(../asset/img/familytree.jpg), #eee;
   background-repeat: no-repeat;
   background-size: 700px;
   background-position: 10vw;
