@@ -161,19 +161,17 @@ export default {
       this.msg = '';
       axios.post('/api/savetree', {
         data: this.tree.toString(),
-      }).then(
-        res => {
-          this.msg = '';
-          if (res.data.result === 1) {
-            this.msg = passive ? '已自动保存' : '保存成功';
-          } else if (res.data.result === -1 && !passive) {
-            this.msg = '没有变更';
-          }
-        },
-        err => {
-          this.msg = '';
-        },
-      );
+      }).then(res => {
+        this.msg = '';
+        if (res.data.result === 1) {
+          this.msg = passive ? '已自动保存' : '保存成功';
+        } else if (res.data.result === -1 && !passive) {
+          this.msg = '没有变更';
+        }
+      }).catch(err => {
+        localStorage.setItem('family_tree_temp_save', this.tree.toString());
+        this.msg = '服务器保存失败，已将最新版本存至本地'; 
+      });
     },
     triggleInfo() {
       this.infoFolded = !this.infoFolded;
