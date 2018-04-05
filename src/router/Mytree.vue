@@ -49,23 +49,28 @@ export default {
     // 'mask-dialog': Dialog,
   },
   mounted() {
-    axios.get('/api/latestTree').then(
-      res => {
-        if (res.data.hasTree) {
-          let treeData;
-          try {
-            treeData = JSON.parse(res.data.tree.data);
-          } catch(e) {
-            console.log(e); // 解析错误的情况
-          }
-          if (res.data.hasTree && ipa.check(treeData)) {
-            this.buildTree(treeData);
-          }
-        } else {
-          this.newTree();
+    axios.get('/api/latestTree').then(res => {
+      if (res.data.hasTree) {
+        let treeData;
+        try {
+          treeData = JSON.parse(res.data.tree.data);
+        } catch(e) {
+          console.log(e); // 解析错误的情况
         }
-      },
-    );
+        if (res.data.hasTree && ipa.check(treeData)) {
+          this.buildTree(treeData);
+        }
+      } else {
+        this.newTree();
+      }
+    }).catch(err => {
+      const treeData = localStorage.getItem('family_tree_temp_save');
+      if (treeData) {
+        this.buildTree(treeData);
+        this.msg = '服务器获取家谱失败，已从本地加载最新的家谱树';
+        // TODO: instant save ??
+      }
+    });
   },
   computed: {
     // ...mapState([
