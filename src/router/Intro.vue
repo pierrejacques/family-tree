@@ -125,8 +125,5 @@ export default {
     font-weight: 800;
     margin: 40px 0 10px;
   }
-  .sub-title {
-
-  }
 }
 </style>

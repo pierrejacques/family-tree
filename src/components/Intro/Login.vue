@@ -2,7 +2,7 @@
   <div class="hello">
     <form @submit.prevent="submit">
       <input type="text" v-model="username" placeholder="用户名">
-      <input type="password" placeholder="密码" v-model="password">
+      <input current-password type="password" placeholder="密码" v-model="password">
       <p v-if="msg" class="warn" :class="{ normal: !warn }">{{msg}}</p>
       <input type="submit" class="pointer" value="登陆" :class="{ disabled: !submittable }">
     </form>
